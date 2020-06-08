@@ -1,0 +1,93 @@
+<%- include("partials/header") %>
+<div class="row">
+  <div class="col-md-12">
+    <h1 class="text-center">Please Sign Up</h1>
+  </div>
+  <div class="col-lg-4 col-md-6 col-sm-8 col-10 m-auto">
+    <form action="/register" method="post" enctype="multipart/form-data">
+      <div class="form-group">
+        <input
+          class="form-control"
+          type="text"
+          name="username"
+          placeholder="username"
+        />
+      </div>
+      <div class="form-group">
+        <input
+          class="form-control"
+          type="password"
+          name="password"
+          placeholder="password"
+        />
+      </div>
+      <div class="form-group">
+        <input
+          class="form-control"
+          type="text"
+          name="firstName"
+          placeholder="first name"
+        />
+      </div>
+      <div class="form-group">
+        <input
+          class="form-control"
+          type="text"
+          name="lastName"
+          placeholder="last name"
+        />
+      </div>
+      <div class="form-group">
+        <input
+          class="form-control"
+          type="email"
+          name="email"
+          placeholder="email"
+        />
+      </div>
+      <div class="form-group">
+        <label for="userImage">Image</label>
+        <input
+          id="userImage"
+          class="form-control"
+          type="file"
+          name="image"
+          accept="image/*"
+          required
+        />
+      </div>
+      <!-- <div class="form-group">
+        <input
+          class="form-control"
+          type="text"
+          name="avatar"
+          placeholder="avatar url"
+        />
+      </div> -->
+      <div class="form-group">
+        <input
+          class="form-control"
+          type="password"
+          name="adminCode"
+          placeholder="admin code"
+        />
+      </div>
+      <div class="form-group">
+        <label for="descriptionInput"
+          >Write something about yourself for your profile:</label
+        >
+        <textarea
+          class="form-control"
+          id="descriptionInput"
+          name="description"
+          rows="7"
+        ></textarea>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-lg btn-primary btn-block">Sign Up!</button>
+      </div>
+    </form>
+    <a href="/campgrounds">Go Back</a>
+  </div>
+</div>
+<%- include("partials/footer") %>

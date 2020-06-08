@@ -1,0 +1,24 @@
+<%- include("partials/header") %>
+
+<div class="row justiy-content-center">
+  <div class="col-lg-4 col-md-6 col-sm-8 col-10">
+    <form action="/forgot" method="POST">
+      <legend>Forgot Password</legend>
+      <div class="form-group">
+        <label for="emailForgot">Email</label>
+        <input
+          class="form-control"
+          type="email"
+          name="email"
+          id="emailForgot"
+          autofocus
+        />
+      </div>
+      <div class="form-group">
+        <input type="submit" class="btn btn-primary" value="Reset Password" />
+      </div>
+    </form>
+  </div>
+</div>
+
+<%- include("partials/footer") %>

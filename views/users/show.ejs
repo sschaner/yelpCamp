@@ -1,0 +1,32 @@
+<%- include("../partials/header") %>
+
+<div class="row">
+  <div class="col-md-4">
+    <div class="card">
+      <h1 class="text-center"><%= user.firstName + " " + user.lastName %></h1>
+      <div class="card-body pb-0">
+        <img
+          src="<%= user.image %>"
+          alt="Profile image of <%= user.firstName + ' ' + user.lastName %>"
+        />
+        <p><%= user.description %></p>
+        <p class="card-body__email mb-0 text-right">
+          Contact me at <a href="mailto:<%= user.email %>"><%= user.email %></a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-8">
+    <h3><%= user.firstName + " " + user.lastName %>'s Campgrounds:</h3>
+    <ul>
+      <% campgrounds.forEach( (campground) => { %>
+      <li>
+        <a href="/campgrounds/<%= campground.id %>"><%= campground.name %></a>
+      </li>
+      <% }); %>
+    </ul>
+  </div>
+</div>
+
+<%- include("../partials/footer") %>
