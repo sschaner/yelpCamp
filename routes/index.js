@@ -94,7 +94,14 @@ router.post(
   }),
   (req, res) => {
     let currentUser = req.user;
-    req.flash("success", "Welcome back " + currentUser.firstName + ". ");
+    if (currentUser.isAdmin) {
+      req.flash(
+        "success",
+        `Welcome back ${currentUser.firstName}. Remember that you have superpowers.`
+      );
+    } else {
+      req.flash("success", `Welcome back ${currentUser.firstName}.`);
+    }
     res.redirect("/campgrounds");
   }
 );

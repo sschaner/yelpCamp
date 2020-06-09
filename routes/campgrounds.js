@@ -111,7 +111,6 @@ router.post("/", middleware.isLoggedIn, upload.single("image"), (req, res) => {
 });
 
 // NEW - show form to create new campground
-// Make sure this is declared before the SHOW route
 router.get("/new", middleware.isLoggedIn, (req, res) => {
   res.render("campgrounds/new");
 });
@@ -179,7 +178,7 @@ router.put(
         campground.description = req.body.campground.description;
         campground.save();
         req.flash("success", "Successfully Updated!");
-        res.redirect("/campgrounds/" + campground._id);
+        res.redirect(`/campgrounds/${campground._id}`);
       }
     });
   }
