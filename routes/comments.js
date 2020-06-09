@@ -4,7 +4,7 @@ const express = require("express"),
   Comment = require("../models/comment"),
   middleware = require("../middleware");
 
-// Comments New
+// NEW COMMENTS ROUTE
 router.get("/new", middleware.isLoggedIn, (req, res) => {
   // find campround by id
   Campground.findById(req.params.id, (err, campground) => {
@@ -16,7 +16,7 @@ router.get("/new", middleware.isLoggedIn, (req, res) => {
   });
 });
 
-// Comments Create
+// CREATE COMMENTS ROUTE
 router.post("/", middleware.isLoggedIn, (req, res) => {
   // lookup campground using ID
   Campground.findById(req.params.id, (err, campground) => {
@@ -68,7 +68,7 @@ router.get(
   }
 );
 
-// COMMENT UPDATE
+// UPDATE COMMENT ROUTE
 router.put("/:comment_id", middleware.checkCommentOwnership, (req, res) => {
   Comment.findByIdAndUpdate(
     req.params.comment_id,
@@ -83,7 +83,7 @@ router.put("/:comment_id", middleware.checkCommentOwnership, (req, res) => {
   );
 });
 
-// COMMENT DESTROY ROUTE
+// DESTROY COMMENT ROUTE
 router.delete("/:comment_id", middleware.checkCommentOwnership, (req, res) => {
   Comment.findByIdAndRemove(req.params.comment_id, (err) => {
     if (err) {

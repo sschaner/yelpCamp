@@ -119,7 +119,7 @@ router.get("/new", middleware.isLoggedIn, (req, res) => {
 router.get("/:id", (req, res) => {
   // find the campground with provided ID
   Campground.findById(req.params.id)
-    .populate("comments")
+    .populate("comments likes")
     .exec((err, foundCampground) => {
       if (err || !foundCampground) {
         req.flash("error", "Campground not found.");
@@ -176,9 +176,15 @@ router.put(
         campground.name = req.body.campground.name;
         campground.price = req.body.campground.price;
         campground.description = req.body.campground.description;
-        campground.save();
-        req.flash("success", "Successfully Updated!");
-        res.redirect(`/campgrounds/${campground._id}`);
+        campground.save((err) => {
+          if (err) {
+            req.flash("error", err.message);
+            res.redirect("back");
+          } else {
+            req.flash("success", "Successfully Updated!");
+            res.redirect(`/campgrounds/${campground._id}`);
+          }
+        });
       }
     });
   }
@@ -212,6 +218,37 @@ router.delete("/:id", middleware.checkCampgroundOwnership, (req, res, next) => {
         return res.redirect("back");
       }
     }
+  });
+});
+
+// CAMPGOUND LIKE ROUTE
+router.post("/:id/like", middleware.isLoggedIn, (req, res) => {
+  Campground.findById(req.params.id, (err, foundCampground) => {
+    if (err) {
+      req.flash("error", err.message);
+      return res.redirect("/campgrounds");
+    }
+
+    // check if req.user._id exists in foundCampground.likes
+    let foundUserLike = foundCampground.likes.some((like) => {
+      return like.equals(req.user._id);
+    });
+
+    if (foundUserLike) {
+      // user aleady liked, removing like
+      foundCampground.likes.pull(req.user._id);
+    } else {
+      // adding the new user like
+      foundCampground.likes.push(req.user);
+    }
+
+    foundCampground.save((err) => {
+      if (err) {
+        req.flash("error", err.message);
+        return res.redirect("/campgrounds");
+      }
+      return res.redirect(`/campgrounds/${foundCampground._id}`);
+    });
   });
 });
 

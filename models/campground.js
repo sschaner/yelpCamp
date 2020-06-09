@@ -16,7 +16,7 @@ const campgroundSchema = new mongoose.Schema({
   author: {
     id: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "USer",
+      ref: "User",
     },
     username: String,
   },
@@ -24,6 +24,12 @@ const campgroundSchema = new mongoose.Schema({
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Comment",
+    },
+  ],
+  likes: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
     },
   ],
 });

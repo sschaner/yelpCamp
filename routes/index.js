@@ -31,16 +31,17 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-// route route
+// ROOT ROUTE
 router.get("/", (req, res) => {
   res.render("landing");
 });
 
-// show register form
+// SHOW REGISTER FORM
 router.get("/register", (req, res) => {
   res.render("register", { page: "register" });
 });
 
+// REGISTER NEW USER
 router.post("/register", upload.single("image"), async (req, res) => {
   let waitForUpload = await cloudinary.v2.uploader.upload(req.file.path, {
     folder: "YelpCamp/Users",
@@ -80,12 +81,12 @@ router.post("/register", upload.single("image"), async (req, res) => {
   });
 });
 
-// show login form
+// SHOW LOGIN FORM ROUTE
 router.get("/login", (req, res) => {
   res.render("login", { page: "login" });
 });
 
-// handling login logic
+// HANDLING LOGIN LOGIC
 router.post(
   "/login",
   passport.authenticate("local", {
@@ -106,14 +107,14 @@ router.post(
   }
 );
 
-// logout route
+// LOGOUT ROUTE
 router.get("/logout", (req, res) => {
   req.logout();
   req.flash("success", "Logged you out.");
   res.redirect("/campgrounds");
 });
 
-// forgot password
+// FORGOT PASSWORD ROUTE
 router.get("/forgot", (req, res) => {
   res.render("forgot");
 });
@@ -252,7 +253,7 @@ router.post("/reset/:token", (req, res) => {
   );
 });
 
-// User Profiles
+// USER PROFILES ROUTE
 router.get("/users/:id", (req, res) => {
   User.findById(req.params.id, (err, foundUser) => {
     if (err) {
