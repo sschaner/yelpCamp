@@ -30,6 +30,17 @@
         <div>
           <span class="badge badge-secondary"><i class="far fa-thumbs-up"></i> <%= campground.likes.length %></span>
         </div>
+        <div>
+        <% if (campground.rating === 0) { %>
+          <em>No reviews yet.</em>
+          <% } else { %>
+          <span class="fas fa-star checked"></span>
+          <span class="fas fa-star <% if (campground.rating > 1.5) { %> checked <% } %>"></span>
+          <span class="fas fa-star <% if (campground.rating > 2.5) { %> checked <% } %>"></span>
+          <span class="fas fa-star <% if (campground.rating > 3.5) { %> checked <% } %>"></span>
+          <span class="fas fa-star <% if (campground.rating > 4.5) { %> checked <% } %>"></span>
+          <% } %>
+        </div>
         <a href="/campgrounds/<%= campground._id %>" class="btn btn-primary mt-2">More Info</a>
       </div>
     </div>

@@ -53,8 +53,8 @@ body {
   width: 100%;
 }
 
-#file-upload-button {
-  background-color: blue;
+.checked {
+  color: orange;
 }
 
 .footer {
