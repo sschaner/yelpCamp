@@ -89,6 +89,7 @@ router.post("/", middleware.isLoggedIn, upload.single("image"), (req, res) => {
         req.body.campground.lat = data[0].latitude;
         req.body.campground.lng = data[0].longitude;
         req.body.campground.location = data[0].formattedAddress;
+        req.body.campground.state = data[0].administrativeLevels.level1long;
 
         // add cloudinary url for the image to the campground object under image property
         req.body.campground.image = result.secure_url;
@@ -129,7 +130,9 @@ router.get("/:id", (req, res) => {
         req.flash("error", "Campground not found.");
         res.redirect("back");
       } else {
-        res.render("campgrounds/show", { campground: foundCampground });
+        res.render("campgrounds/show", {
+          campground: foundCampground,
+        });
       }
     });
 });
@@ -172,6 +175,7 @@ router.put(
             campground.lat = updatedLocation[0].latitude;
             campground.lng = updatedLocation[0].longitude;
             campground.location = updatedLocation[0].formattedAddress;
+            req.body.campground.state = data[0].administrativeLevels.level1long;
           } catch (err) {
             req.flash("error", err.message);
             return res.redirect("back");
