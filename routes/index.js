@@ -147,7 +147,7 @@ router.post("/forgot", (req, res, next) => {
 
       (token, user, done) => {
         var mailOptions = {
-          from: "Steve Schaner <schanerst@gmail.com>",
+          from: "Steve Schaner <app174367248@heroku.com>",
           to: user.email,
           subject: "YelpCamp Password Reset",
           text:
