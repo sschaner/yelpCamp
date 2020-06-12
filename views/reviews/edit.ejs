@@ -50,11 +50,14 @@
         </fieldset>
       </div>
       <div class="form-group">
+        <label for="editReviewDescription" class="sr-only"
+          >Edit your review</label
+        >
         <textarea
+          id="editReviewDescription"
           class="form-control"
           type="text"
           name="review[text]"
-          placeholder="Write a review for this review..."
           rows="5"
         >
 <%= review.text %></textarea

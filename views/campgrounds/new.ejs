@@ -2,12 +2,14 @@
 
 <div class="row justify-content-center">
   <div class="col-md-12">
-    <h1 class="text-center">Create a New Campground</h1>
+    <h1 class="text-center">Create a New Vacation Spot</h1>
   </div>
   <div class="col-lg-4 col-md-6 col-sm-8 col-10">
     <form action="/campgrounds" method="POST" enctype="multipart/form-data">
       <div class="form-group">
+        <label for="newVacationName" class="sr-only">Name</label>
         <input
+          id="newVacationName"
           class="form-control"
           type="text"
           name="campground[name]"
@@ -15,7 +17,9 @@
         />
       </div>
       <div class="form-group">
+        <label for="newVacationPrice" class="sr-only">Price</label>
         <input
+          id="newVacationPrice"
           class="form-control"
           type="number"
           name="campground[price]"

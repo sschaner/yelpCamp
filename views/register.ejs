@@ -6,15 +6,20 @@
   <div class="col-lg-4 col-md-6 col-sm-8 col-10 m-auto">
     <form action="/register" method="post" enctype="multipart/form-data">
       <div class="form-group">
+        <label for="registerUsername" class="sr-only">Username</label>
         <input
+          id="registerUsername"
           class="form-control"
           type="text"
           name="username"
           placeholder="username"
+          autofocus
         />
       </div>
       <div class="form-group">
+        <label for="registerPassword" class="sr-only">Password</label>
         <input
+          id="registerPassword"
           class="form-control"
           type="password"
           name="password"
@@ -22,7 +27,9 @@
         />
       </div>
       <div class="form-group">
+        <label for="registerFirstName" class="sr-only">First Name</label>
         <input
+          id="registerFirstName"
           class="form-control"
           type="text"
           name="firstName"
@@ -30,7 +37,9 @@
         />
       </div>
       <div class="form-group">
+        <label for="registerLastName" class="sr-only">Last Name</label>
         <input
+          id="registerLastName"
           class="form-control"
           type="text"
           name="lastName"
@@ -38,7 +47,9 @@
         />
       </div>
       <div class="form-group">
+        <label for="registerEmail" class="sr-only">Email</label>
         <input
+          id="registerEmail"
           class="form-control"
           type="email"
           name="email"
@@ -56,16 +67,10 @@
           required
         />
       </div>
-      <!-- <div class="form-group">
-        <input
-          class="form-control"
-          type="text"
-          name="avatar"
-          placeholder="avatar url"
-        />
-      </div> -->
       <div class="form-group">
+        <label for="registerAdminCode" class="sr-only">Admin Code</label>
         <input
+          id="registerAdminCode"
           class="form-control"
           type="password"
           name="adminCode"
