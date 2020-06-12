@@ -232,9 +232,9 @@ router.post("/reset/:token", (req, res) => {
 
       (user, done) => {
         var mailOptions = {
-          from: "Steve Schaner <schanerst@gmail.com>",
+          from: "app174367248@heroku.com",
           to: user.email,
-          subject: "Your YelpCamp Password Has Been Changed",
+          subject: "Your Vacation Tracker Password Has Been Changed",
           text:
             "Hello,\n\n" +
             "This is a confirmation that the password for your account " +
