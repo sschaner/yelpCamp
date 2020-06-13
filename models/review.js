@@ -22,9 +22,9 @@ var reviewSchema = new mongoose.Schema(
       },
       username: String,
     },
-    campground: {
+    vacation: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Campground",
+      ref: "Vacation",
     },
   },
   {

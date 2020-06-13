@@ -13,19 +13,19 @@
   <div class="col-md-9">
     <div class="card mb-3">
       <img
-        src="<%= campground.image %>"
-        alt="Picture of <%= campground.name %>"
+        src="<%= vacation.image %>"
+        alt="Picture of <%= vacation.name %>"
         class="card-img-top"
       />
       <div class="card-body">
-        <p class="float-right">$<%= campground.price %>/night</p>
-        <h5 class="card-title"><%= campground.name %></h5>
+        <p class="float-right">$<%= vacation.price %>/night</p>
+        <h5 class="card-title"><%= vacation.name %></h5>
         <p>
           <em
             >Submitted by:
-            <a href="/users/<%= campground.author.id %>"
-              ><%= campground.author.username %></a
-            >, <%= moment(campground.createdAt).fromNow() %></em
+            <a href="/users/<%= vacation.author.id %>"
+              ><%= vacation.author.username %></a
+            >, <%= moment(vacation.createdAt).fromNow() %></em
           >
         </p>
         <div class="float-right">
@@ -33,53 +33,53 @@
             type="button"
             class="btn btn-sm btn-primary"
             data-toggle="modal"
-            data-target="#campgroundLikes"
+            data-target="#vacationLikes"
           >
             <span
               >Total Likes: <i class="far fa-thumbs-up"></i> <%=
-              campground.likes.length %></span
+              vacation.likes.length %></span
             >
           </button>
         </div>
         <div class="pb-2">
-          <form action="/campgrounds/<%= campground._id %>/like" method="POST">
+          <form action="/vacations/<%= vacation._id %>/like" method="POST">
             <div class="btn-group">
-              <% if (currentUser && campground.likes.some(like => { return
+              <% if (currentUser && vacation.likes.some(like => { return
               like.equals(currentUser._id); })) { %>
               <button class="btn bt-primary">
                 <i class="far fa-thumbs-up"></i> Liked (<%=
-                campground.likes.length %>)
+                vacation.likes.length %>)
               </button>
               <% } else { %>
               <button class="btn btn-secondary">
                 <i class="far fa-thumbs-up"></i> Like (<%=
-                campground.likes.length %>)
+                vacation.likes.length %>)
               </button>
               <% } %>
             </div>
           </form>
         </div>
 
-        <p class="card-text"><%= campground.description %></p>
+        <p class="card-text"><%= vacation.description %></p>
 
-        <% if(currentUser && campground.author.id.equals(currentUser._id) ||
+        <% if(currentUser && vacation.author.id.equals(currentUser._id) ||
         currentUser && currentUser.isAdmin) { %>
         
         <form
           class="d-inline-block float-right"
-          action="/campgrounds/<%= campground._id %>?_method=DELETE"
+          action="/vacations/<%= vacation._id %>?_method=DELETE"
           method="POST"
         >
           <button class="btn btn-danger btn-sm">Delete</button>
         </form>
         <a
           class="btn btn-warning btn-sm float-right mr-1"
-          href="/campgrounds/<%= campground._id %>/edit"
+          href="/vacations/<%= vacation._id %>/edit"
           >Edit</a
         >
         <% } %>
         <div class="mt-2">
-          <a class="btn btn-light" href="/campgrounds"
+          <a class="btn btn-light" href="/vacations"
             ><i class="fa fa-arrow-left"></i> Go back</a
           >
         </div>
@@ -88,25 +88,25 @@
         <!--Review section-->
         <div class="card mb-3">
           <div class="card-body">
-              <% if (campground.rating === 0) { %>
+              <% if (vacation.rating === 0) { %>
               <h5>
                   <em>No reviews yet.</em>
               </h5>
               <% } else { %>
               <p>
                   <span class="fas fa-star checked"></span>
-                  <span class="fas fa-star <% if (campground.rating > 1.5) { %> checked <% } %>"></span>
-                  <span class="fas fa-star <% if (campground.rating > 2.5) { %> checked <% } %>"></span>
-                  <span class="fas fa-star <% if (campground.rating > 3.5) { %> checked <% } %>"></span>
-                  <span class="fas fa-star <% if (campground.rating > 4.5) { %> checked <% } %>"></span>
-                  <em>(total reviews: <%= campground.reviews.length %>)</em>
+                  <span class="fas fa-star <% if (vacation.rating > 1.5) { %> checked <% } %>"></span>
+                  <span class="fas fa-star <% if (vacation.rating > 2.5) { %> checked <% } %>"></span>
+                  <span class="fas fa-star <% if (vacation.rating > 3.5) { %> checked <% } %>"></span>
+                  <span class="fas fa-star <% if (vacation.rating > 4.5) { %> checked <% } %>"></span>
+                  <em>(total reviews: <%= vacation.reviews.length %>)</em>
               </p>
               <p>
-                  Current campground rating: <strong><%= campground.rating.toFixed(2) %></strong>
+                  Current vacation rating: <strong><%= vacation.rating.toFixed(2) %></strong>
               </p>
-              <p><h4>Latest reviews for this campground:</h4></p>
+              <p><h4>Latest reviews for this vacation:</h4></p>
               <hr>
-              <% campground.reviews.slice(0, 5).forEach(function(review){ %>
+              <% vacation.reviews.slice(0, 5).forEach(function(review){ %>
               <div class="row">
                   <div class="col-md-4">
                       <%- '<span class="fa fa-star checked"></span>'.repeat(review.rating) %><%- '<span class="fa fa-star"></span>'.repeat(5 - review.rating) %>
@@ -120,8 +120,8 @@
                       <% if(currentUser && review.author.id.equals(currentUser._id)){ %>
                         <div class="align-self-end d-flex col-3 justify-content-end p-0">
                           <a class="btn btn-sm btn-warning mr-1"
-                         href="/campgrounds/<%=campground._id %>/reviews/<%=review._id %>/edit">Edit</a>
-                         <form class="d-inline-block" id="delete-form" action="/campgrounds/<%=campground._id %>/reviews/<%=review._id %>?_method=DELETE" method="POST">
+                         href="/vacations/<%=vacation._id %>/reviews/<%=review._id %>/edit">Edit</a>
+                         <form class="d-inline-block" id="delete-form" action="/vacations/<%=vacation._id %>/reviews/<%=review._id %>?_method=DELETE" method="POST">
                           <input type="submit" class="btn btn-sm btn-danger" value="Delete">
                       </form>
                         </div>
@@ -132,11 +132,11 @@
               <hr>
               <% }); %>
               <div class="mb-2">
-                  <h5><a href="/campgrounds/<%= campground._id %>/reviews"><i class="fa fa-search" aria-hidden="true"></i> See all reviews</a></h5>
+                  <h5><a href="/vacations/<%= vacation._id %>/reviews"><i class="fa fa-search" aria-hidden="true"></i> See all reviews</a></h5>
               </div>
               <% } %>
               <div>
-                  <a class="btn btn-primary <% if (currentUser && campground.reviews.some( (review) => {return review.author.id.equals(currentUser._id)})) { %> disabled <% } %>" href="/campgrounds/<%= campground._id %>/reviews/new">
+                  <a class="btn btn-primary <% if (currentUser && vacation.reviews.some( (review) => {return review.author.id.equals(currentUser._id)})) { %> disabled <% } %>" href="/vacations/<%= vacation._id %>/reviews/new">
                       Write a New Review</a>
               </div>
           </div>
@@ -145,19 +145,19 @@
         <div class="text-right">
           <a
             class="btn btn-success"
-            href="/campgrounds/<%= campground._id %>/comments/new"
+            href="/vacations/<%= vacation._id %>/comments/new"
             >Add New Comment</a
           >
         </div>
         <div class="row">
-          <% campground.comments.forEach((comment) => { %>
+          <% vacation.comments.forEach((comment) => { %>
           
           <div class="col-md-12">
             <hr />
 
             <blockquote class="blockquote">
               <p class="mb-0"><%= comment.text %></p>
-              <footer class="blockquote-footer"><a href="/users/<%= campground.author.id %>"
+              <footer class="blockquote-footer"><a href="/users/<%= vacation.author.id %>"
                 ><%= comment.author.username %></a
               ><span class="float-right"
               ><%= moment(comment.createdAt).fromNow() %></span
@@ -165,13 +165,13 @@
             <% if(currentUser && comment.author.id.equals(currentUser._id)){ %>
             <div class="text-right mt-2">
               <a
-                href="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>/edit"
+                href="/vacations/<%= vacation._id %>/comments/<%= comment._id %>/edit"
                 class="btn btn-sm btn-warning"
                 >Edit</a
               >
               <form
                 class="d-inline-block"
-                action="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>?_method=DELETE"
+                action="/vacations/<%= vacation._id %>/comments/<%= comment._id %>?_method=DELETE"
                 method="POST"
               >
                 <input
@@ -191,14 +191,14 @@
   </div>
 </div>
 
-<!-- Campground Likes Modal -->
-<div id="campgroundLikes" class="modal fade" role="dialog">
+<!-- Vacation Likes Modal -->
+<div id="vacationLikes" class="modal fade" role="dialog">
   <div class="modal-dialog">
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">
-          Campground likes: <%= campground.likes.length %>
+          Vacation likes: <%= vacation.likes.length %>
         </h5>
         <button
           type="button"
@@ -217,16 +217,16 @@
             </tr>
           </thead>
           <tbody>
-            <% campground.likes.forEach(function(like) { %>
+            <% vacation.likes.forEach(function(like) { %>
             <tr>
               <td>
                 <span class="badge"><i class="fas fa-user"></i></span>
-                <a href="/users/<%= campground.author.id %>"
+                <a href="/users/<%= vacation.author.id %>"
                   ><%= like.username %></a
                 >
               </td>
             </tr>
-            <% }); %> <% if (campground.likes.length === 0) { %>
+            <% }); %> <% if (vacation.likes.length === 0) { %>
             <tr>
               <td><em>No likes yet.</em></td>
             </tr>
@@ -245,8 +245,8 @@
 
 <script>
   function initMap() {
-    let lat = <%= campground.lat %>;
-    let lng = <%= campground.lng %>;
+    let lat = <%= vacation.lat %>;
+    let lng = <%= vacation.lng %>;
     let center = {lat: lat, lng: lng };
     let map = new google.maps.Map(document.getElementById('map'), {
         zoom: 8,
@@ -254,9 +254,9 @@
         scrollwheel: false
     });
     let contentString = `
-      <strong><%= campground.name %><br />
-      <%= campground.location %></strong>
-      <p><%= campground.description %></p>
+      <strong><%= vacation.name %><br />
+      <%= vacation.location %></strong>
+      <p><%= vacation.description %></p>
     `
     let infowindow = new google.maps.InfoWindow({
       content: contentString

@@ -18,11 +18,11 @@
   </div>
 
   <div class="col-md-8">
-    <h3><%= user.firstName + " " + user.lastName %>'s Campgrounds:</h3>
+    <h3><%= user.firstName + " " + user.lastName %>'s Vacation Spots:</h3>
     <ul>
-      <% campgrounds.forEach( (campground) => { %>
+      <% vacations.forEach( (vacation) => { %>
       <li>
-        <a href="/campgrounds/<%= campground.id %>"><%= campground.name %></a>
+        <a href="/vacations/<%= vacation.id %>"><%= vacation.name %></a>
       </li>
       <% }); %>
     </ul>
