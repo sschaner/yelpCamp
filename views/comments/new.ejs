@@ -2,10 +2,10 @@
 
 <div class="row justify-content-center">
   <div class="col-md-12">
-    <h1 class="text-center">Add New Comment to <%= campground.name %></h1>
+    <h1 class="text-center">Add New Comment to <%= vacation.name %></h1>
   </div>
   <div class="col-lg-4 col-md-6 col-sm-8 col-10">
-    <form action="/campgrounds/<%= campground._id %>/comments" method="POST">
+    <form action="/vacations/<%= vacation._id %>/comments" method="POST">
       <div class="form-group">
         <label for="newCommentText" class="sr-only">Add a new comment</label>
         <input
@@ -20,7 +20,7 @@
         <button class="btn btn-lg btn-primary btn-block">Submit!</button>
       </div>
     </form>
-    <a href="/campgrounds">Go Back</a>
+    <a href="/vacaions">Go Back</a>
   </div>
 </div>
 

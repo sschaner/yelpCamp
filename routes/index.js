@@ -2,7 +2,7 @@ const express = require("express"),
   router = express.Router(),
   passport = require("passport"),
   User = require("../models/user"),
-  Campground = require("../models/campground"),
+  Vacation = require("../models/vacation"),
   async = require("async"),
   crypto = require("crypto"),
   multer = require("multer"),
@@ -44,7 +44,7 @@ router.get("/register", (req, res) => {
 // REGISTER NEW USER
 router.post("/register", upload.single("image"), async (req, res) => {
   let waitForUpload = await cloudinary.v2.uploader.upload(req.file.path, {
-    folder: "YelpCamp/Users",
+    folder: "VacationTracker/Users",
   });
 
   const newUser = new User({
@@ -70,12 +70,15 @@ router.post("/register", upload.single("image"), async (req, res) => {
         if (user.isAdmin) {
           req.flash(
             "success",
-            `Welcome to YelpCamp ${user.firstName}. You are an administator and have the power to edit and/or delete anything.`
+            `Welcome to Vacation Tracker ${user.firstName}. You are an administator and have the power to edit and/or delete anything.`
           );
         } else {
-          req.flash("success", `Welcome to YelpCamp ${user.firstName}.`);
+          req.flash(
+            "success",
+            `Welcome to Vacation Tracker ${user.firstName}.`
+          );
         }
-        return res.redirect("/campgrounds");
+        return res.redirect("/vacations");
       });
     }
   });
@@ -103,7 +106,7 @@ router.post(
     } else {
       req.flash("success", `Welcome back ${currentUser.firstName}.`);
     }
-    res.redirect("/campgrounds");
+    res.redirect("/vacations");
   }
 );
 
@@ -111,7 +114,7 @@ router.post(
 router.get("/logout", (req, res) => {
   req.logout();
   req.flash("success", "Logged you out.");
-  res.redirect("/campgrounds");
+  res.redirect("/vacations");
 });
 
 // FORGOT PASSWORD ROUTE
@@ -149,7 +152,7 @@ router.post("/forgot", (req, res, next) => {
         var mailOptions = {
           from: "Steve Schaner <schanerst@gmail.com>",
           to: user.email,
-          subject: "YelpCamp Password Reset",
+          subject: "Vacation Tracker Password Reset",
           text:
             "You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n" +
             "Please click on the following link, or paste this into your browser to complete the process:\n\n" +
@@ -234,7 +237,7 @@ router.post("/reset/:token", (req, res) => {
         var mailOptions = {
           from: "Steve Schaner <schanerst@gmail.com>",
           to: user.email,
-          subject: "Your YelpCamp Password Has Been Changed",
+          subject: "Your Vacation Tracker Password Has Been Changed",
           text:
             "Hello,\n\n" +
             "This is a confirmation that the password for your account " +
@@ -248,7 +251,7 @@ router.post("/reset/:token", (req, res) => {
       },
     ],
     (err) => {
-      res.redirect("/campgrounds");
+      res.redirect("/vacations");
     }
   );
 });
@@ -260,15 +263,15 @@ router.get("/users/:id", (req, res) => {
       req.flash("error", "Something went wrong.");
       res.redirect("/");
     }
-    Campground.find()
+    Vacation.find()
       .where("author.id")
       .equals(foundUser._id)
-      .exec((err, campgrounds) => {
+      .exec((err, vacations) => {
         if (err) {
           req.flash("error", "Something went wrong.");
           res.redirect("/");
         }
-        res.render("users/show", { user: foundUser, campgrounds: campgrounds });
+        res.render("users/show", { user: foundUser, vacations });
       });
   });
 });

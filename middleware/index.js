@@ -1,22 +1,19 @@
-const Campground = require("../models/campground"),
+const Vacation = require("../models/vacation"),
   Comment = require("../models/comment"),
   Review = require("../models/review");
 
 // all the middleware goes here
 const middlewareObj = {};
 
-middlewareObj.checkCampgroundOwnership = (req, res, next) => {
+middlewareObj.checkVacationOwnership = (req, res, next) => {
   if (req.isAuthenticated()) {
-    Campground.findById(req.params.id, (err, foundCampground) => {
-      if (err || !foundCampground) {
-        req.flash("error", "Campground not found.");
+    Vacation.findById(req.params.id, (err, foundVacation) => {
+      if (err || !foundVacation) {
+        req.flash("error", "Vacation not found.");
         res.redirect("back");
       } else {
-        // does user own the campground?
-        if (
-          foundCampground.author.id.equals(req.user._id) ||
-          req.user.isAdmin
-        ) {
+        // does user own the vacation?
+        if (foundVacation.author.id.equals(req.user._id) || req.user.isAdmin) {
           next();
         } else {
           req.flash("error", "You don't have permission to do that.");
@@ -82,19 +79,19 @@ middlewareObj.checkReviewOwnership = (req, res, next) => {
 
 middlewareObj.checkReviewExistence = (req, res, next) => {
   if (req.isAuthenticated()) {
-    Campground.findById(req.params.id)
+    Vacation.findById(req.params.id)
       .populate("reviews")
-      .exec((err, foundCampground) => {
-        if (err || !foundCampground) {
-          req.flash("error", "Campground not found.");
+      .exec((err, foundVacation) => {
+        if (err || !foundVacation) {
+          req.flash("error", "Vacation not found.");
           res.redirect("back");
         } else {
-          let foundUserReview = foundCampground.reviews.some((review) => {
+          let foundUserReview = foundVacation.reviews.some((review) => {
             return review.author.id.equals(req.user._id);
           });
           if (foundUserReview) {
             req.flash("error", "You already wrote a review.");
-            return res.redirect(`/campgrounds/${foundCampground._id}`);
+            return res.redirect(`/vacations/${foundVacation._id}`);
           }
           next();
         }

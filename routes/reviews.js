@@ -1,22 +1,24 @@
+const review = require("../models/review");
+
 const express = require("express"),
   router = express.Router({ mergeParams: true }),
-  Campground = require("../models/campground"),
+  Vacation = require("../models/vacation"),
   Review = require("../models/review"),
   middleware = require("../middleware");
 
 // INDEX REVIEWS ROUTE
 router.get("/", (req, res) => {
-  Campground.findById(req.params.id)
+  Vacation.findById(req.params.id)
     .populate({
       path: "reviews",
       options: { sort: { createdAt: -1 } },
     })
-    .exec((err, campground) => {
-      if (err || !campground) {
+    .exec((err, vacation) => {
+      if (err || !vacation) {
         req.flash("error", err.message);
         return res.redirect("back");
       }
-      res.render("reviews/index", { campground });
+      res.render("reviews/index", { vacation });
     });
 });
 
@@ -26,12 +28,12 @@ router.get(
   middleware.isLoggedIn,
   middleware.checkReviewExistence,
   (req, res) => {
-    Campground.findById(req.params.id, (err, campground) => {
+    Vacation.findById(req.params.id, (err, vacation) => {
       if (err) {
         req.flash("error", err.message);
         return res.redirect("back");
       }
-      res.render("reviews/new", { campground });
+      res.render("reviews/new", { vacation });
     });
   }
 );
@@ -42,9 +44,9 @@ router.post(
   middleware.isLoggedIn,
   middleware.checkReviewExistence,
   (req, res) => {
-    Campground.findById(req.params.id)
+    Vacation.findById(req.params.id)
       .populate("reviews")
-      .exec((err, campground) => {
+      .exec((err, vacation) => {
         if (err) {
           req.flash("error", err.message);
           return res.redirect("back");
@@ -56,16 +58,16 @@ router.post(
           }
           review.author.id = req.user._id;
           review.author.username = req.user.username;
-          review.campground = campground;
+          review.vacation = vacation;
           review.save();
-          campground.reviews.push(review);
-          campground.rating = calculateAverage(campground.reviews);
-          campground.save();
+          vacation.reviews.push(review);
+          vacation.rating = calculateAverage(vacation.reviews);
+          vacation.save();
           req.flash(
             "success",
             "Thank you. Your review has been successfully added."
           );
-          res.redirect(`/campgrounds/${campground._id}`);
+          res.redirect(`/vacations/${vacation._id}`);
         });
       });
   }
@@ -79,7 +81,7 @@ router.get("/:review_id/edit", middleware.checkReviewOwnership, (req, res) => {
       return res.redirect("back");
     }
     res.render("reviews/edit", {
-      campground_id: req.params.id,
+      vacation_id: req.params.id,
       review: foundReview,
     });
   });
@@ -96,17 +98,17 @@ router.put("/:review_id", middleware.checkReviewOwnership, (req, res) => {
         req.flash("error", err.message);
         return res.redirect("back");
       }
-      Campground.findById(req.params.id)
+      Vacation.findById(req.params.id)
         .populate("reviews")
-        .exec((err, campground) => {
+        .exec((err, vacation) => {
           if (err) {
             req.flash("error", err.message);
             return res.redirect("back");
           }
-          campground.rating = calculateAverage(campground.reviews);
-          campground.save();
+          vacation.rating = calculateAverage(vacation.reviews);
+          vacation.save();
           req.flash("success", "Your review was successfully edited.");
-          res.redirect(`/campgrounds/${campground._id}`);
+          res.redirect(`/vacations/${vacation._id}`);
         });
     }
   );
@@ -119,21 +121,21 @@ router.delete("/:review_id", middleware.checkReviewOwnership, (req, res) => {
       req.flash("error", err.message);
       return res.redirect("back");
     }
-    Campground.findByIdAndUpdate(
+    Vacation.findByIdAndUpdate(
       req.params.id,
       { $pull: { reviews: req.params.review_id } },
       { new: true }
     )
       .populate("reviews")
-      .exec((err, campground) => {
+      .exec((err, vacation) => {
         if (err) {
           req.flash("error", err.message);
           return res.redirect("back");
         }
-        campground.rating = calculateAverage(campground.reviews);
-        campground.save();
+        vacation.rating = calculateAverage(vacation.reviews);
+        vacation.save();
         req.flash("success", "Your review was deleted successfully.");
-        res.redirect(`/campgrounds/${req.params.id}`);
+        res.redirect(`/vacations/${req.params.id}`);
       });
   });
 });
