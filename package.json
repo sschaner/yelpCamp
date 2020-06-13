@@ -1,11 +1,7 @@
 {
   "name": "yelpcamp",
   "version": "1.0.0",
-<<<<<<< HEAD
   "description": "A vacation database that holds different vacation spots and their corresponding reviews and comments that is built with the MEN stack (Mongo, Express, Node)",
-=======
-  "description": "A family vacation database built with the MEN stack (Mongo, Express, Node)",
->>>>>>> copy
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
