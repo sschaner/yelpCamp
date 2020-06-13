@@ -10,7 +10,7 @@ const express = require("express"),
   passport = require("passport"),
   LocalStrategy = require("passport-local"),
   methodOverride = require("method-override"),
-  Campground = require("./models/campground"),
+  Vacation = require("./models/vacation"),
   Comment = require("./models/comment"),
   User = require("./models/user"),
   seedDB = require("./seeds"); // seed the database
@@ -18,7 +18,7 @@ const express = require("express"),
 // requiring routes
 const commentRoutes = require("./routes/comments"),
   reviewRoutes = require("./routes/reviews"),
-  campgroundRoutes = require("./routes/campgrounds"),
+  vacationRoutes = require("./routes/vacations"),
   indexRoutes = require("./routes/index");
 
 mongoose.connect(
@@ -26,7 +26,7 @@ mongoose.connect(
     process.env.MONGOOSE_DATABASE_USERNAME +
     ":" +
     process.env.MONGOOSE_DATABASE_PASSWORD +
-    "@yelpcamp-vlprc.mongodb.net/YelpCamp?retryWrites=true&w=majority",
+    "@vacationtracker-fdrss.mongodb.net/VacationTracker?retryWrites=true&w=majority",
   { useNewUrlParser: true, useUnifiedTopology: true }
 );
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -60,12 +60,12 @@ app.use((req, res, next) => {
 });
 
 app.use("/", indexRoutes);
-app.use("/campgrounds", campgroundRoutes);
-app.use("/campgrounds/:id/comments", commentRoutes);
-app.use("/campgrounds/:id/reviews", reviewRoutes);
+app.use("/vacations", vacationRoutes);
+app.use("/vacations/:id/comments", commentRoutes);
+app.use("/vacations/:id/reviews", reviewRoutes);
 
 app.listen(process.env.PORT, () => {
   console.log(
-    "The YelpCamp server has started on port " + process.env.PORT + "."
+    "The VacationTracker server has started on port " + process.env.PORT + "."
   );
 });
