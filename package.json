@@ -1,5 +1,5 @@
 {
-  "name": "yelpcamp",
+  "name": "vacationtracker",
   "version": "1.0.0",
   "description": "A vacation database that holds different vacation spots and their corresponding reviews and comments that is built with the MEN stack (Mongo, Express, Node)",
   "main": "app.js",
