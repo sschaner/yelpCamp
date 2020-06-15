@@ -7,10 +7,11 @@ const express = require("express"),
   crypto = require("crypto"),
   multer = require("multer"),
   cloudinary = require("cloudinary"),
-  mailgun = require("mailgun-js")({
-    apiKey: process.env.MAILGUN_API_KEY,
-    domain: process.env.MAILGUN_DOMAIN,
-  });
+  mailgun = require("mailgun-js");
+const mg = mailgun({
+  apiKey: process.env.MAILGUN_API_KEY,
+  domain: process.env.MAILGUN_DOMAIN,
+});
 
 const storage = multer.diskStorage({
   filename: (req, file, callback) => {
@@ -163,7 +164,7 @@ router.post("/forgot", (req, res, next) => {
             "\n\n" +
             "If you did not request this, please ignore this email and your password will remain unchanged.\n",
         };
-        mailgun.messages().send(mailOptions, (err) => {
+        mg.messages().send(mailOptions, (err) => {
           req.flash(
             "success",
             "An e-mail has been sent to " +
@@ -244,7 +245,7 @@ router.post("/reset/:token", (req, res) => {
             user.email +
             " has just been changed.\n",
         };
-        mailgun.messages().send(mailOptions, (err) => {
+        mg.messages().send(mailOptions, (err) => {
           req.flash("success", "Your password has been changed.");
           done(err);
         });
