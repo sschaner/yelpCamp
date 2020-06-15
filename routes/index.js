@@ -8,8 +8,8 @@ const express = require("express"),
   multer = require("multer"),
   cloudinary = require("cloudinary"),
   mailgun = require("mailgun-js")({
-    apiKey: process.env.MAIL_GUN_API_KEY,
-    domain: process.env.MAIL_GUN_DOMAIN,
+    apiKey: process.env.MAILGUN_API_KEY,
+    domain: process.env.MAILGUN_DOMAIN,
   });
 
 const storage = multer.diskStorage({
