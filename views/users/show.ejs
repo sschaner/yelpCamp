@@ -1,10 +1,10 @@
 <%- include("../partials/header") %>
 
 <div class="row">
-  <div class="col-md-4">
-    <div class="card">
-      <h1 class="text-center"><%= user.firstName + " " + user.lastName %></h1>
-      <div class="card-body pb-0">
+  <div class="col-md-5">
+    <div class="card mb-3">
+      <div class="card-body pb-1">
+        <h1 class="text-center"><%= user.firstName + " " + user.lastName %></h1>
         <img
           src="<%= user.image %>"
           alt="Profile image of <%= user.firstName + ' ' + user.lastName %>"
@@ -17,9 +17,9 @@
     </div>
   </div>
 
-  <div class="col-md-8">
+  <div class="col-md-7">
     <h3><%= user.firstName + " " + user.lastName %>'s Vacation Spots:</h3>
-    <ul>
+    <ul class="user-vacation-list">
       <% vacations.forEach( (vacation) => { %>
       <li>
         <a href="/vacations/<%= vacation.id %>"><%= vacation.name %></a>

@@ -55,6 +55,14 @@ a:hover {
   z-index: 1;
 }
 
+.jumbotron-content h1 {
+  font-size: 1.5rem;
+}
+
+.jumbotron-content h5 {
+  font-size: 0.75rem;
+}
+
 svg {
   width: 100%;
   height: 100%;
@@ -75,6 +83,7 @@ svg path {
 .search-input {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
+  height: calc(1em + 0.75rem + 2px);
 }
 
 .btn-search {
@@ -92,13 +101,21 @@ svg path {
   padding: 0 0 32px 0;
 }
 
+.checked {
+  color: orange;
+}
+
+.badge {
+  padding: 0.4rem;
+}
+
 #map {
   height: 400px;
   width: 100%;
 }
 
-.checked {
-  color: orange;
+.user-vacation-list {
+  margin-left: 1rem;
 }
 
 .footer {
@@ -107,6 +124,7 @@ svg path {
   width: 100%;
   height: 60px;
   background-color: #f5f5f5;
+  font-size: 0.75rem;
 }
 
 .container .text-muted {
@@ -114,12 +132,28 @@ svg path {
 }
 
 @media (min-width: 576px) {
+  .jumbotron-content h1 {
+    font-size: 2.5rem;
+  }
+
+  .jumbotron-content h5 {
+    font-size: 1.25rem;
+  }
+
+  .search-input {
+    height: calc(1.5em + 0.75rem + 2px);
+  }
+
   .vacation-image {
     height: 20vw;
   }
 
   .grid-container {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .footer {
+    font-size: 1rem;
   }
 }
 
