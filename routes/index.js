@@ -151,7 +151,7 @@ router.post("/forgot", (req, res, next) => {
 
       (token, user, done) => {
         var mailOptions = {
-          from: "app174367248@heroku.com",
+          from: "schanerst@gmail.com",
           to: user.email,
           subject: "Vacation Tracker Password Reset",
           text:
@@ -236,7 +236,7 @@ router.post("/reset/:token", (req, res) => {
 
       (user, done) => {
         var mailOptions = {
-          from: "app174367248@heroku.com",
+          from: "schanerst@gmail.com",
           to: user.email,
           subject: "Your Vacation Tracker Password Has Been Changed",
           text:
